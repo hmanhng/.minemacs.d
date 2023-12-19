@@ -1,3 +1,47 @@
+#+title: Emacs config for [minemacs](https://github.com/abougouffa/minemacs)
+#+description:
+#+author: Hmanhng
+#+property: header-args :mkdirp yes :tangle yes :tangle-mode: #o444 :results silent :noweb yes
+#+startup: indent showall
+
+* early-config.el
+:properties:
+:header-args: :tangle early-config.el
+:end:
+#+begin_src emacs-lisp
+;;; early-config.el -*- coding: utf-8-unix; lexical-binding: t; -*-
+
+;; This file will be loaded at the end of `early-init.el', it can be used to set
+;; some early initialization stuff, or to set some MinEmacs variables, specially
+;; these used in macros.
+
+;; Set log level to `info' rather than `error'
+(unless minemacs-verbose-p
+  (setq minemacs-msg-level 2))
+
+;; Disable `dashboard'
+(setq +dashboard-disable t)
+
+;; Enable full screen at startup
+;; (if-let ((fullscreen (assq 'fullscreen default-frame-alist)))
+;;     (setcdr fullscreen 'fullboth)
+;;   (push '(fullscreen . fullboth) default-frame-alist))
+
+;; Force loading lazy packages immediately, not in idle time
+;; (setq minemacs-not-lazy-p t)
+
+;; Setup a `debug-on-message' to catch a wired message!
+;; (setq debug-on-message "Package cl is deprecated")
+
+;; Compute statistics to use with `use-package-report'
+;; (setq use-package-compute-statistics t)
+#+end_src
+
+* modules.el
+:properties:
+:header-args: :tangle modules.el
+:end:
+#+begin_src emacs-lisp
 ;;; modules.el -*- lexical-binding: t; -*-
 
 ;;; Ordered list of enabled core modules
@@ -59,3 +103,74 @@
          visual-fill-column
          ;; me-tools
          bitwarden)))
+#+end_src
+
+* config.el
+:properties:
+:header-args: :tangle config.el
+:end:
+** Lexical binding
+[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Lexical-Binding.html][Lexical Binding]]
+#+begin_src emacs-lisp
+;;; config.el -*- lexical-binding: t; -*-
+#+end_src
+
+** Lib
+*** set-formatter!
+Hack from ~Doomemacs~
+#+begin_src emacs-lisp
+(cl-defun set-formatter! (name args &key modes)
+  (declare (indent defun))
+  (cl-check-type name symbol)
+  (with-eval-after-load 'apheleia
+    (if (null args)
+        (progn
+          (setq apheleia-formatters
+                (assq-delete-all name apheleia-formatters))
+          (while (rassoc name apheleia-mode-alist)
+            (setq apheleia-mode-alist
+                  (assq-delete-all (car (rassoc name apheleia-mode-alist)) apheleia-mode-alist))))
+      (let ((formatter (cond
+                        ((listp args) `(,@args))
+                        (t args))))
+        (setf (alist-get name apheleia-formatters) formatter))
+      (when modes
+        (dolist (mode modes)
+          (setf (alist-get mode apheleia-mode-alist) name))))))
+#+end_src
+** Personal info
+#+begin_src emacs-lisp
+(setq user-full-name "hmanhng"
+      user-mail-address (concat "hmanhng" "@" "icloud" "." "com"))
+#+end_src
+
+** Themes
+#+begin_src emacs-lisp
+(setq minemacs-theme 'doom-solarized-light)
+#+end_src
+
+** Fonts
+#+begin_src emacs-lisp
+(plist-put minemacs-fonts-plist
+           :default ;; <- applies to the `default' face using `custom-theme-set-faces'
+           '((:family "IBM Plex Mono" :height 170) ; <- priority 1
+             (:family "Maple Mono" :height 160 :weight light) ; <- priority 2
+             (:family "SF Pro Display" :height 150 :weight semi-light))) ; <- priority 3
+#+end_src
+
+** Format
+#+begin_src emacs-lisp
+(set-formatter! 'alejandra '("alejandra" "-q" "-") :modes '(nix-ts-mode))
+#+end_src
+
+** auto-tangle-mode
+#+begin_src emacs-lisp
+(use-package auto-tangle-mode
+  :straight (auto-tangle-mode
+             :host github
+             :repo "progfolio/auto-tangle-mode.el"
+             :local-repo "auto-tangle-mode")
+  :commands (auto-tangle-mode)
+  :defer t
+  :hook (org-mode . auto-tangle-mode))
+#+end_src

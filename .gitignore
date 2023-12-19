@@ -1,0 +1,7 @@
+# ignore everything unless we add it here
+*
+
+# whitelist
+!/.gitignore
+!/readme.org
+!/tangle.sh
