@@ -1,12 +1,11 @@
 #+title: Emacs config for [minemacs](https://github.com/abougouffa/minemacs)
 #+description:
 #+author: Hmanhng
-#+property: header-args :mkdirp yes :tangle yes :tangle-mode: #o444 :results silent :noweb yes
 #+startup: indent showall
 
 * early-config.el
 :properties:
-:header-args: :tangle early-config.el
+:header-args: :tangle-mode o444 :tangle early-config.el
 :end:
 #+begin_src emacs-lisp
 ;;; early-config.el -*- coding: utf-8-unix; lexical-binding: t; -*-
@@ -39,7 +38,7 @@
 
 * modules.el
 :properties:
-:header-args: :tangle modules.el
+:header-args: :tangle-mode o444 :tangle modules.el
 :end:
 #+begin_src emacs-lisp
 ;;; modules.el -*- lexical-binding: t; -*-
@@ -107,7 +106,7 @@
 
 * config.el
 :properties:
-:header-args: :tangle config.el
+:header-args: :tangle-mode o444 :tangle config.el
 :end:
 ** Lexical binding
 [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Lexical-Binding.html][Lexical Binding]]
@@ -138,6 +137,7 @@ Hack from ~Doomemacs~
         (dolist (mode modes)
           (setf (alist-get mode apheleia-mode-alist) name))))))
 #+end_src
+
 ** Personal info
 #+begin_src emacs-lisp
 (setq user-full-name "hmanhng"
