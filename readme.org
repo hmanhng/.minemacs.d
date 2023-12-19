@@ -146,16 +146,19 @@ Hack from ~Doomemacs~
 
 ** Themes
 #+begin_src emacs-lisp
-(setq minemacs-theme 'doom-solarized-light)
+(use-package catppuccin-theme
+   :straight t)
+(setq minemacs-theme 'catppuccin)
+(setq catppuccin-flavor 'macchiato) ;; frappe or 'latte, 'macchiato, or 'mocha
 #+end_src
 
 ** Fonts
 #+begin_src emacs-lisp
 (plist-put minemacs-fonts-plist
            :default ;; <- applies to the `default' face using `custom-theme-set-faces'
-           '((:family "IBM Plex Mono" :height 170) ; <- priority 1
-             (:family "Maple Mono" :height 160 :weight light) ; <- priority 2
-             (:family "SF Pro Display" :height 150 :weight semi-light))) ; <- priority 3
+           '((:family "IBM Plex Mono" :height 180) ; <- priority 1
+             (:family "Maple Mono" :height 170 :weight light) ; <- priority 2
+             (:family "SF Pro Display" :height 160 :weight semi-light))) ; <- priority 3
 #+end_src
 
 ** Format
