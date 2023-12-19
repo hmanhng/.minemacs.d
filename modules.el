@@ -57,6 +57,5 @@
          focus
          me-writing-mode
          visual-fill-column
-         nix-ts-mode
          ;; me-tools
          bitwarden)))

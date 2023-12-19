@@ -7,21 +7,21 @@
 ;; Set the default GPG key ID, see "gpg --list-secret-keys"
 ;; (setq-default epa-file-encrypt-to '("XXXX"))
 
-;; Set a theme for MinEmacs, supported themes include these from `doom-themes'
-;; or built-in themes
-(setq minemacs-theme 'doom-one) ; `doom-one' is a dark theme, `doom-one-light' is the light one
+;; Theme
+(setq minemacs-theme 'doom-solarized-light) ; `doom-one' is a dark theme, `doom-one-light' is the light one
+
+;; Fonts
+(plist-put minemacs-fonts-plist
+           :default ;; <- applies to the `default' face using `custom-theme-set-faces'
+           '((:family "IBM Plex Mono" :height 170) ; <- priority 1
+             (:family "Maple Mono" :height 160 :weight light) ; <- priority 2
+             (:family "SF Pro Display" :height 150 :weight semi-light))) ; <- priority 3
 
 (setq-default
  ;; Better support for files with long lines
  bidi-paragraph-direction 'left-to-right
  ;; Speeds redisplay, may break paranthesis rendering for bidirectional files
  bidi-inhibit-bpa t)
-
-(plist-put minemacs-fonts-plist
-           :default ;; <- applies to the `default' face using `custom-theme-set-faces'
-           '((:family "IBM Plex Mono" :height 180) ; <- priority 1
-             (:family "JetBrains Mono" :height 160 :weight light) ; <- priority 2
-             (:family "Cascadia Code" :height 120 :weight semi-light))) ; <- priority 3
 
 ;; Format
 ;; Hack from Doom-Emacs
@@ -44,5 +44,5 @@
         (dolist (mode modes)
           (setf (alist-get mode apheleia-mode-alist) name))))))
 
-(with-eval-after-load 'nix-mode
-  (set-formatter! 'alejandra '("alejandra" "-q" "-") :modes '(nix-mode)))
+(with-eval-after-load 'nix-ts-mode
+  (set-formatter! 'alejandra '("alejandra" "-q" "-") :modes '(nix-ts-mode)))
