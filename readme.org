@@ -166,7 +166,18 @@ Hack from ~Doomemacs~
 (set-formatter! 'alejandra '("alejandra" "-q" "-") :modes '(nix-ts-mode))
 #+end_src
 
-** auto-tangle-mode
+** Org-mode
+*** toc-org
+Emacs utility to have an up-to-date table of contents in the org.
+#+begin_src emacs-lisp
+(use-package toc-org
+  :straight t
+  :defer t
+  :hook ((org-mode markdown-mode) . toc-org-mode))
+#+end_src
+
+*** auto-tangle-mode
+Minor mode for tangling literate files on save.
 #+begin_src emacs-lisp
 (use-package auto-tangle-mode
   :straight (auto-tangle-mode
