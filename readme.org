@@ -146,10 +146,8 @@ Hack from ~Doomemacs~
 
 ** Themes
 #+begin_src emacs-lisp
-(use-package catppuccin-theme
-   :straight t)
-(setq minemacs-theme 'catppuccin)
-(setq catppuccin-flavor 'macchiato) ;; frappe or 'latte, 'macchiato, or 'mocha
+(defvar +theme 'mine "Default theme.")
+(setq minemacs-theme +theme)
 #+end_src
 
 ** Fonts
