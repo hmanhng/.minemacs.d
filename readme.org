@@ -186,3 +186,24 @@ Minor mode for tangling literate files on save.
   :defer t
   :hook (org-mode . auto-tangle-mode))
 #+end_src
+
+** Eglot
+#+begin_src emacs-lisp
+(+deferred!
+ (+eglot-register '(java-mode java-ts-mode) `("jdt-language-server" "-data" ,(expand-file-name "java-workspace" minemacs-cache-dir)))
+ (add-hook 'java-mode-hook #'eglot-ensure)
+
+ (with-eval-after-load 'eglot
+   (+eglot-use-on-all-supported-modes eglot-server-programs)))
+#+end_src
+
+** Bind
+#+begin_src emacs-lisp
+(+map!
+    "z"   '((lambda (local) (interactive "p")
+             (unless repeat-mode (repeat-mode))
+             (let ((local current-prefix-arg)
+                   (current-prefix-arg nil))
+               (call-interactively (if local #'text-scale-adjust #'global-text-scale-adjust))))
+            :which-key "zoom"))
+#+end_src
