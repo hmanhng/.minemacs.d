@@ -1,7 +1,7 @@
 #+title: Emacs config for [minemacs](https://github.com/abougouffa/minemacs)
 #+description:
 #+author: Hmanhng
-#+startup: indent showall
+#+startup: indent show2levels
 
 * early-config.el
 :properties:
@@ -146,7 +146,21 @@ Hack from ~Doomemacs~
 
 ** Themes
 #+begin_src emacs-lisp
-(defvar +theme 'mine "Default theme.")
+(defvar +theme 'kaolin-ocean "Default theme.")
+(use-package kaolin-themes
+  :straight t
+  :config
+  (setq kaolin-ocean-alt-bg nil
+        kaolin-themes-hl-line-colored t
+        kaolin-themes-git-gutter-solid t
+        kaolin-themes-underline-wave nil
+        kaolin-themes-modeline-border nil
+        ;; kaolin-themes-modeline-padded 2
+        kaolin-themes-italic-comments t
+        kaolin-themes-org-scale-headings t
+        kaolin-themes-distinct-metakeys nil))
+
+;; Load theme
 (setq minemacs-theme +theme)
 #+end_src
 
