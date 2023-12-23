@@ -189,6 +189,9 @@ Hack from ~Doomemacs~
   :hook (bash-ts-mode . eglot-ensure)
   :init
   (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode)))
+(use-package fish-mode
+  :straight t
+  :mode "\\.fish\\'")
 #+end_src
 
 *** Go
