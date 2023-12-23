@@ -174,9 +174,39 @@ Hack from ~Doomemacs~
              (:family "SF Pro Display" :height 160 :weight semi-light))) ; <- priority 3
 #+end_src
 
-** Format
+** Language
+*** Nix
 #+begin_src emacs-lisp
-(set-formatter! 'alejandra '("alejandra" "-q" "-") :modes '(nix-ts-mode))
+(use-package nix-ts-mode
+  :hook (nix-ts-mode . eglot-ensure)
+  :config
+  (set-formatter! 'alejandra '("alejandra" "-q" "-") :modes '(nix-ts-mode)))
+#+end_src
+
+*** Shell
+#+begin_src emacs-lisp
+(use-package bash-ts-mode
+  :hook (bash-ts-mode . eglot-ensure)
+  :init
+  (add-to-list 'major-mode-remap-alist '(sh-mode . bash-ts-mode)))
+#+end_src
+
+*** Go
+#+begin_src emacs-lisp
+(use-package go-mode
+  :straight t
+  :hook (go-mode . eglot-ensure))
+#+end_src
+
+*** Java
+#+begin_src emacs-lisp
+(use-package java-ts-mode
+  :mode "\\.java\\'"
+  :hook (java-ts-mode . eglot-ensure)
+  :config
+  (with-eval-after-load 'eglot
+    (+eglot-register
+     '(java-mode java-ts-mode) `("jdt-language-server" "-data" ,(expand-file-name "java-workspace" minemacs-cache-dir)))))
 #+end_src
 
 ** Org-mode
@@ -200,16 +230,6 @@ Minor mode for tangling literate files on save.
   :commands (auto-tangle-mode)
   :defer t
   :hook (org-mode . auto-tangle-mode))
-#+end_src
-
-** Eglot
-#+begin_src emacs-lisp
-(+deferred!
- (+eglot-register '(java-mode java-ts-mode) `("jdt-language-server" "-data" ,(expand-file-name "java-workspace" minemacs-cache-dir)))
- (add-hook 'java-mode-hook #'eglot-ensure)
-
- (with-eval-after-load 'eglot
-   (+eglot-use-on-all-supported-modes eglot-server-programs)))
 #+end_src
 
 ** Bind
