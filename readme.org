@@ -96,7 +96,8 @@
 ;;; List of disabled packages
 (setq minemacs-disabled-packages
       (append
-       '(;; me-ui
+       '(time
+         ;; me-ui
          focus
          me-writing-mode
          visual-fill-column
