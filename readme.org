@@ -74,7 +74,7 @@
         ;; me-math        ; Mathematics (maxima, ess, ein, julia-mode, ...)
         ;; me-modeling    ; Modeling tools (scad-mode, ...)
         me-org            ; Org-mode for life (org-contrib, org-modern, org-appear, ...)
-        ;; me-extra          ; Extra features (better-jumper, crux, ...)
+        me-extra          ; Extra features (better-jumper, crux, ...)
         ;; me-notes          ; Notes & Zettelkasten (denote, ...)
         ;; me-email       ; Email (mu4e, mu4e-alert, org-msg, ...)
         ;; me-rss         ; News feed (elfeed, ...)
