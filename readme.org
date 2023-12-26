@@ -142,7 +142,7 @@ Hack from ~Doomemacs~
 ** Personal info
 #+begin_src emacs-lisp
 (setq user-full-name "hmanhng"
-      user-mail-address (concat "hmanhng" "@" "icloud" "." "com"))
+      user-mail-address (rot13 "uznauat@vpybhq.pbz"))
 #+end_src
 
 ** Themes
