@@ -79,9 +79,9 @@
         ;; me-email       ; Email (mu4e, mu4e-alert, org-msg, ...)
         ;; me-rss         ; News feed (elfeed, ...)
         ;; me-lifestyle   ; *Very* opinionated lifestyle packages (awqat, ...)
-        ;; me-docs           ; Documents (pdf-tools, nov, ...)
+        me-docs           ; Documents (pdf-tools, nov, ...)
         ;; me-calendar    ; Calendar (calfw, calfw-org, calfw-ical, ...)
-        ;; me-latex          ; LaTeX (auctex, auctex-latexmk, ...)
+        me-latex          ; LaTeX (auctex, auctex-latexmk, ...)
         ;; me-biblio      ; Bibliography & citations (citar, zotxt, ...)
         ;; me-natural-langs  ; Natural language stuff (spell-fu, go-translate, eglot-ltex, ...)
         ;; me-files          ; Files and directories (dirvish, treemacs, vlf, ...)
@@ -90,7 +90,7 @@
         ;; me-fun            ; Games and funny packages (xkcd, speed-type, ...)
         ;; me-media          ; Multimedia (empv, emms, ...)
         me-workspaces  ; Workspace separation (tabspaces, ...)
-        ;; me-binary         ; Display binary files in hex or decompile them
+        me-binary         ; Display binary files in hex or decompile them
         me-window))       ; Frame & window tweaks
 
 ;;; List of disabled packages
@@ -212,6 +212,27 @@ Hack from ~Doomemacs~
      '(java-mode java-ts-mode) `("jdt-language-server" "-data" ,(expand-file-name "java-workspace" minemacs-cache-dir)))))
 #+end_src
 
+*** Latex
+#+begin_src emacs-lisp
+(use-package tex
+  :custom
+  (TeX-engine-alist '((default
+                       "Tectonic"
+                       "tectonic -X compile -f plain %T"
+                       "tectonic -X compile -Z shell-escape -Z continue-on-errors %T"
+                       nil)))
+  (LaTeX-command-style '(("" "%(latex)")))
+  (TeX-process-asynchronous t)
+  (TeX-check-TeX nil)
+  (TeX-engine 'default)
+  :config
+  (add-to-list 'TeX-view-program-selection '(output-pdf "Zathura")) 
+  (let ((tex-list (assoc "TeX" TeX-command-list))
+        (latex-list (assoc "LaTeX" TeX-command-list)))
+    (setf (cadr tex-list) "%(tex)"
+          (cadr latex-list) "%l")))
+#+end_src
+
 ** Org-mode
 #+begin_src emacs-lisp
 (with-eval-after-load 'org
@@ -220,7 +241,31 @@ Hack from ~Doomemacs~
    org-directory "~/Desktop/org/"))
 #+end_src
 
-*** toc-org
+*** Latex
+#+begin_src emacs-lisp
+(with-eval-after-load 'ox-latex
+  (setq org-latex-compiler "lualatex"))
+;; (setq org-preview-latex-default-process 'dvisvgm)
+
+(with-eval-after-load 'org
+  (push '("\\.pdf\\'" . "zathura %s") org-file-apps))
+
+(defun org-open-file-pdf ()
+  "Open file with `org-open-file' if the PDF exists."
+  (interactive)
+  (when (eq major-mode 'org-mode)
+    (let* ((org-file (buffer-file-name))
+           (pdf-file (concat (file-name-sans-extension org-file) ".pdf")))
+      (when (file-exists-p pdf-file)
+        (org-open-file pdf-file)))))
+
+(+map-local! :keymaps 'org-mode-map
+  "E"  #'org-latex-export-to-pdf
+  "o"  '(nil :wk "open-file")
+  "op" #'org-open-file-pdf)
+#+end_src
+
+*** Toc-org
 Emacs utility to have an up-to-date table of contents in the org.
 #+begin_src emacs-lisp
 (use-package toc-org
@@ -229,7 +274,7 @@ Emacs utility to have an up-to-date table of contents in the org.
   :hook ((org-mode markdown-mode) . toc-org-mode))
 #+end_src
 
-*** auto-tangle-mode
+*** Auto-tangle-mode
 Minor mode for tangling literate files on save.
 #+begin_src emacs-lisp
 (use-package auto-tangle-mode
