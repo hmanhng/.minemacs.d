@@ -102,7 +102,10 @@
          me-writing-mode
          visual-fill-column
          ;; me-tools
-         bitwarden)))
+         bitwarden
+         ;; me-latex
+         auctex-latexmk
+         latex-preview-pane)))
 #+end_src
 
 * config.el
