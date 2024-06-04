@@ -43,55 +43,57 @@
 #+begin_src emacs-lisp
 ;;; modules.el -*- lexical-binding: t; -*-
 
-;;; Ordered list of enabled core modules
-(setq minemacs-core-modules
-      '(me-splash         ; Simple splash screen
-        me-keybindings    ; Keybinding (general, which-key, hydra, ...)
-        me-evil           ; Emacs as Vim (evil, evil-collection, evil-snipe, evil-numbers, ...)
-        me-core-ui        ; Core UI (doom-themes, modus-themes, doom-modeline, ...)
-        me-completion))   ; Completion (vertico, marginalia, corfu, cape, consult, embark, ...)
+;; Copyright (C) 2022 Abdelhak Bougouffa
+
+;; This file can be used to override `minemacs-modules'
 
 ;;; List of enabled modules
 (setq minemacs-modules
-      '(me-ui             ; User interface (svg-lib, focus, mixed-pitch, ...)
-        me-editor         ; Editing (tempel, tempel-collection, rainbow-delimiters, expreg, drag-stuff, ...)
-        ;; me-daemon         ; Emacs daemon tweaks
-        me-undo           ; Better undoing (undo-fu, undo-fu-session, vundo, ...)
-        me-multi-cursors  ; Multi-cursors editing (iedit, evil-mc, evil-iedit-state, ...)
-        me-vc             ; Version control (magit, forge, core-review, diff-hl, ...)
-        me-project        ; Project management (consult-project-extra, ibuffer-project, ...)
-        me-prog           ; Programming stuff (tree-sitter, eldoc-box, apheleia, editorconfig, ...)
-        me-checkers       ; Static checkers (flymake-easy, ...)
-        ;; me-debug          ; Debugging tools (realgud, disaster, ...)
-        ;; me-lsp         ; LSP and DAP (lsp-mode, dap-mode, consult-lsp, lsp-pyright, ccls, ...)
-        me-emacs-lisp     ; Emacs lisp development (parinfer-rust, macrostep, eros, helpful, ...)
-        ;; me-common-lisp ; Common Lisp development (sly, sly-quicklisp, ...)
-        ;; me-scheme      ; Scheme development (racket-mode, geiser, ...)
-        ;; me-clojure     ; Clojure development (clojure-mode, cider, ...)
-        ;; me-embedded    ; Embedded systems (arduino, openocd, bitbake, ...)
-        ;; me-robot       ; Robotics stuff (ros, robot-mode, ...)
-        me-data           ; Data file formats (csv, yaml, toml, json, plantuml-mode, ...)
-        ;; me-math        ; Mathematics (maxima, ess, ein, julia-mode, ...)
-        ;; me-modeling    ; Modeling tools (scad-mode, ...)
-        me-org            ; Org-mode for life (org-contrib, org-modern, org-appear, ...)
-        me-extra          ; Extra features (better-jumper, crux, ...)
-        ;; me-notes          ; Notes & Zettelkasten (denote, ...)
-        ;; me-email       ; Email (mu4e, mu4e-alert, org-msg, ...)
-        ;; me-rss         ; News feed (elfeed, ...)
-        ;; me-lifestyle   ; *Very* opinionated lifestyle packages (awqat, ...)
-        me-docs           ; Documents (pdf-tools, nov, ...)
+      '(;; me-ai          ; AI assistant using Ollama (ellama, llm, ...)
+        ;; me-biblio      ; Bibliography & citations (citar, citar-embark, org-re-reveal-citeproc, ...)
         ;; me-calendar    ; Calendar (calfw, calfw-org, calfw-ical, ...)
-        me-latex          ; LaTeX (auctex, auctex-latexmk, ...)
-        ;; me-biblio      ; Bibliography & citations (citar, zotxt, ...)
-        ;; me-natural-langs  ; Natural language stuff (spell-fu, go-translate, eglot-ltex, ...)
-        ;; me-files          ; Files and directories (dirvish, treemacs, vlf, ...)
-        me-tools          ; System tools (vterm, tldr, ssh-deploy, docker, ...)
-        me-tty            ; Emacs from terminal (xt-mouse, xclip, ...)
-        ;; me-fun            ; Games and funny packages (xkcd, speed-type, ...)
+        me-checkers       ; Static checkers (flymake-collection, flymenu, flymake-cppcheck, ...)
+        ;; me-clojure     ; Clojure development (clojure-mode, cider, ...)
+        ;; me-common-lisp ; Common Lisp development (sly, sly-quicklisp, ...)
+        me-completion     ; Completion (vertico, marginalia, corfu, cape, consult, embark, ...)
+        ;; me-daemon      ; Emacs daemon tweaks
+        me-data           ; Data file formats and tools (csv, yaml, toml, json, plantuml-mode, jq-mode, ...)
+        me-debug          ; Debugging tools (realgud, disaster, dape, rmsbolt, beardbolt, ...)
+        me-docs           ; Documents (pdf-tools, pdf-view-restore, nov, crdt, edraw, markdown-mode, ...)
+        me-editor         ; Editing (tempel, tempel-collection, rainbow-delimiters, expreg, drag-stuff, ...)
+        me-emacs-lisp     ; Emacs lisp development (parinfer-rust, macrostep, eros, helpful, ...)
+        ;; me-email       ; Email (mu4e, mu4e-alert, org-msg, ...)
+        ;; me-embedded    ; Embedded systems (embed, arduino-mode, openocd, bitbake, dts-mode, ...)
+        me-evil           ; Emacs as Vim (evil, evil-collection, evil-snipe, evil-numbers, ...)
+        me-extra          ; Extra features (better-jumper, crux, ...)
+        ;; me-files          ; Files and directories (dirvish, vlf, sudo-edit, ztree, ...)
+        ;; me-fun            ; Games and funny packages (xkcd, speed-type, wordel, ...)
+        ;; me-gtd         ; Getting Things Done (org-gtd, ...)
+        me-keybindings    ; Keybinding (general, which-key, hydra, ...)
+        me-latex          ; LaTeX (auctex, auctex-latexmk, LaTeX-preview-pane, ...)
+        ;; me-lifestyle   ; *Very* opinionated lifestyle packages (awqat, ...)
+        ;; me-math        ; Mathematics (maxima, ess, ein, code-cells, julia-mode, ...)
         ;; me-media          ; Multimedia (empv, emms, ...)
-        me-workspaces  ; Workspace separation (tabspaces, ...)
-        me-binary         ; Display binary files in hex or decompile them
-        me-window))       ; Frame & window tweaks
+        ;; me-modeling    ; Modeling tools (scad-mode, modelica-mode, ...)
+        me-multi-cursors  ; Multi-cursors editing (iedit, evil-mc, evil-iedit-state, ...)
+        ;; me-nano        ; N Λ N O Emacs (nano-theme, nano-modeline, nano-vertico, ...)
+        me-natural-langs  ; Natural language stuff (jinx, spell-fu, go-translate, eglot-ltex, ...)
+        me-notes          ; Notes & Zettelkasten (denote, consult-notes, ...)
+        me-org            ; Org-mode for life (org-contrib, org-modern, org-appear, engrave-faces, ...)
+        me-prog           ; Programming stuff (tree-sitter, eldoc-box, apheleia, editorconfig, ...)
+        me-project        ; Project management (projection, compile-multi, consult-project-extra, ...)
+        ;; me-robot       ; Robotics stuff (ros, robot-mode, ...)
+        ;; me-rss         ; News feed (elfeed, ...)
+        ;; me-scheme      ; Scheme development (racket-mode, geiser, ...)
+        me-services       ; Web services (org-jira, ...)
+        ;; me-tags        ; Source code tagging tools (citre, ggtags, clink, ...)
+        me-tools          ; System tools (vterm, tldr, ssh-deploy, docker, logview, with-editor, ...)
+        me-tty            ; Emacs from terminal (xclip, ...)
+        me-ui             ; User interface (doom-themes, modus-themes, doom-modeline, svg-lib, page-break-lines, ...)
+        me-undo           ; Better undoing (undo-fu-session, vundo, ...)
+        me-vc             ; Version control (magit, forge, diff-hl, git-timemachine, repo, diffview, ...)
+        ;; me-workspaces  ; Workspace separation (project-tab-groups, ...)
+        me-window))       ; Frame & window tweaks (ace-window, ...)
 
 ;;; List of disabled packages
 (setq minemacs-disabled-packages
@@ -172,9 +174,9 @@ Hack from ~Doomemacs~
 #+begin_src emacs-lisp
 (plist-put minemacs-fonts-plist
            :default ;; <- applies to the `default' face using `custom-theme-set-faces'
-           '((:family "IBM Plex Mono" :height 180) ; <- priority 1
-             (:family "Maple Mono" :height 170 :weight light) ; <- priority 2
-             (:family "SF Pro Display" :height 160 :weight semi-light))) ; <- priority 3
+           '((:family "IBM Plex Mono" :height 150) ; <- priority 1
+             (:family "Maple Mono" :height 140 :weight light) ; <- priority 2
+             (:family "SF Pro Display" :height 130 :weight semi-light))) ; <- priority 3
 #+end_src
 
 ** Language
@@ -229,7 +231,7 @@ Hack from ~Doomemacs~
   (TeX-check-TeX nil)
   (TeX-engine 'default)
   :config
-  (add-to-list 'TeX-view-program-selection '(output-pdf "Zathura")) 
+  (add-to-list 'TeX-view-program-selection '(output-pdf "Zathura"))
   (let ((tex-list (assoc "TeX" TeX-command-list))
         (latex-list (assoc "LaTeX" TeX-command-list)))
     (setf (cadr tex-list) "%(tex)"
